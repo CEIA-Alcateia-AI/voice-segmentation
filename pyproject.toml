@@ -59,6 +59,7 @@ select = [
   "ISC",
   "PIE",
 ]
+ignore = ["D203", "D213"]
 unfixable = ["ERA001", "F401"]
 per-file-ignores = { "tests/**/*.py" = ["S101", "ANN", "PLR2004"] }
 isort = { known-first-party = ["vas"] }

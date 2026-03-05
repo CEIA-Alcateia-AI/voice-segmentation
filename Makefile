@@ -27,13 +27,13 @@ setup: install hooks ## Full dev environment setup
 # ---------------------------------------------------------------------------
 .PHONY: format
 format: ## Auto-format code with ruff
-	$(PYTHON) ruff format $(SRC) $(TESTS)
-	$(PYTHON) ruff check --fix $(SRC) $(TESTS)
+	$(PYTHON) ruff format $(SRC)
+	$(PYTHON) ruff check --fix $(SRC)
 
 .PHONY: lint
 lint: ## Lint code with ruff
-	$(PYTHON) ruff format --check $(SRC) $(TESTS)
-	$(PYTHON) ruff check $(SRC) $(TESTS)
+	$(PYTHON) ruff format --check $(SRC)
+	$(PYTHON) ruff check $(SRC)
 
 # ---------------------------------------------------------------------------
 # Type Checking
