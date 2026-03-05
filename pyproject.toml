@@ -16,7 +16,9 @@ readme = "README.md"
 license = "MIT"
 authors = [{ name = "Andre Koraleski", email = "andrekorale@gmail.com" }]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pydantic-settings>=2.13.1",
+]
 
 [dependency-groups]
 dev = [

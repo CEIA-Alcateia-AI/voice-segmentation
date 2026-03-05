@@ -59,7 +59,7 @@ jobs:
         run: uv sync --all-groups
 
       - name: Mypy
-        run: uv run mypy src/pequi
+        run: uv run mypy src/vas
 
   test:
     name: Test (Python ${{ matrix.python-version }})
