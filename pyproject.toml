@@ -17,6 +17,7 @@ license = "MIT"
 authors = [{ name = "Andre Koraleski", email = "andrekorale@gmail.com" }]
 requires-python = ">=3.12"
 dependencies = [
+    "numpy>=2.4.2",
     "pydantic-settings>=2.13.1",
 ]
 
