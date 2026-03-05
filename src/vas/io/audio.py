@@ -1,7 +1,7 @@
 """Local-disk audio loading and writing."""
 
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 import soundfile as sf  # type: ignore[import-untyped]
@@ -32,7 +32,10 @@ def load_audio(path: Path) -> tuple[NDArray[np.float32], int]:
     """
     audio: NDArray[Any]
     sample_rate: int
-    audio, sample_rate = sf.read(path, dtype="float32", always_2d=True)
+    audio, sample_rate = cast(
+        "tuple[NDArray[Any], int]",
+        sf.read(path, dtype="float32", always_2d=True),
+    )
 
     # Mix down to mono by averaging channels
     audio = audio.mean(axis=1) if audio.shape[1] > 1 else audio[:, 0]
