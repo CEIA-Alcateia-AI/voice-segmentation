@@ -24,9 +24,11 @@ repos:
 
   # Mypy - verificação de tipos
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.9.0
+    rev: v1.15.0
     hooks:
       - id: mypy
-        additional_dependencies: []
+        additional_dependencies:
+          - "numpy>=2.0"
+          - "pydantic>=2.6"
         args: ["--config-file=pyproject.toml"]
         pass_filenames: false

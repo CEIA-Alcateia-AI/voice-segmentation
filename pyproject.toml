@@ -9,7 +9,10 @@ description = "Biblioteca de estratégias de segmentação de voz"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "numpy>=2.4.3",
+    "pydantic>=2.12.5",
+]
 
 [project.optional-dependencies]
 dev = [
