@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  quality:
+    name: Qualidade de código
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instala dependências de desenvolvimento
+        run: pip install -e ".[dev]"
+
+      - name: Lint (ruff)
+        run: ruff check src/
+
+      - name: Formatação (ruff format)
+        run: ruff format --check src/ tests/
+
+      - name: Verificação de tipos (mypy)
+        run: mypy src/voice_segmentation
+
+  tests:
+    name: Testes
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Instala dependências de teste
+        run: pip install -e ".[test]"
+
+      - name: Executa testes
+        run: pytest tests/ -v
