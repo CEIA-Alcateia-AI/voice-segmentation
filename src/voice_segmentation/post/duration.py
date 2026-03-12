@@ -1,5 +1,3 @@
-"""Aplicação de limites de duração sobre listas de segmentos."""
-
 import logging
 import math
 
@@ -205,12 +203,7 @@ def enforce_duration(
 ) -> list[Segment]:
     """Aplica o pipeline completo de limitação de duração sobre uma lista de segmentos.
 
-    Etapas executadas em ordem:
-
-    1. Mesclagem de curtos: Segmentos abaixo de soft_lower são mesclados com o melhor vizinho.
-    2. Divisao de longos: Segmentos acima de soft_upper sao divididos em partes iguais.
-    3. Overlap: Cada segmento é expandido overlap / 2 segundos em cada borda.
-    4. Filtragem hard: Segmentos fora de [hard_lower, hard_upper] sao descartados.
+    Executa em ordem: mesclagem de curtos, divisão de longos, overlap e filtragem hard.
 
     Args:
         segments: Lista de segmentos (início, fim) em segundos produzida por uma estratégia do

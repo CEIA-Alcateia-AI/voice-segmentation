@@ -1,4 +1,3 @@
-"""Pipeline pre-configurado baseado em detecção de silêncio."""
 
 from pydantic import BaseModel
 
@@ -10,15 +9,12 @@ from voice_segmentation.settings import DurationSettings
 class SilencePipeline(Pipeline):
     """Pipeline de segmentação baseado em detecção de regiões de silêncio.
 
-    Aceita parâmetros individuais diretamente no construtor. Um objeto ``SilenceSettings``
-    completo pode ser passado para uso avançado e prevalece sobre os parâmetros individuais.
-
-    Opções de saída (espectrogramas, metadados, formato de áudio, etc.) são configuradas
-    por chamada em ``run()``, permitindo reutilizar a mesma instância com saídas distintas.
+    Aceita parâmetros individuais ou um objeto SilenceSettings completo, que prevalece
+    sobre os parâmetros individuais.
 
     Attributes:
         silence_settings: Configurações do detector de silêncio.
-        duration_settings: Limites de duração e mesclagem. Herdado de :class:`Pipeline`.
+        duration_settings: Limites de duração e mesclagem. Herdado de Pipeline.
     """
 
     def __init__(

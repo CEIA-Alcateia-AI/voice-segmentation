@@ -1,5 +1,3 @@
-"""Exceções da biblioteca de segmentação de voz."""
-
 
 class VoiceSegmentationError(Exception):
     """Classe base para todas as exceções da biblioteca."""
@@ -13,7 +11,7 @@ class SilenceDetectionError(VoiceSegmentationError):
     """
 
     def __init__(self, cause: str) -> None:
-        """Inicializa a exceção com uma mensagem detalhada."""
+        """Inicializa com a causa do erro."""
         super().__init__(f"Falha na detecção de silêncios: {cause}")
 
 
@@ -25,5 +23,5 @@ class EmptySegmentationError(VoiceSegmentationError):
     """
 
     def __init__(self, message: str) -> None:
-        """Inicializa a exceção com uma mensagem detalhada."""
+        """Inicializa com a mensagem de erro."""
         super().__init__(message)

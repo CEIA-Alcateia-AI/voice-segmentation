@@ -1,5 +1,3 @@
-"""Estratégia de segmentação baseada em detecção de silêncios."""
-
 import logging
 
 import librosa

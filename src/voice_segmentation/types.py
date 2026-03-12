@@ -1,5 +1,3 @@
-"""Tipos fundamentais compartilhados por toda a biblioteca."""
-
 import numpy as np
 import numpy.typing as npt
 

@@ -1,5 +1,3 @@
-"""Geração e persistência de espectrogramas de segmentos de áudio."""
-
 from pathlib import Path
 
 import librosa
@@ -15,14 +13,7 @@ _N_MELS = 128
 
 
 def _save_segment_spectrogram(audio: AudioArray, sample_rate: int, dest: Path) -> None:
-    """Computa e salva uma imagem PNG com três métodos de espectrograma do segmento.
-
-    Os três painéis, compartilhando o eixo de tempo, são:
-
-    - **STFT** — frequência linear, amplitude em dB.
-    - **Mel** — escala mel perceptual, potência em dB.
-    - **CQT** — Transformada Q-Constante, amplitude em dB; resolução logarítmica
-      de frequência, ideal para fala e música.
+    """Salva uma imagem PNG com três espectrogramas (STFT, Mel, CQT) do segmento.
 
     Args:
         audio: Fatia de áudio mono float32.

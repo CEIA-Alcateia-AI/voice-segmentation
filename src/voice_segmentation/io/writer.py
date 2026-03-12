@@ -1,5 +1,3 @@
-"""Escritor de segmentos de áudio: fatias de sinal mais arquivos de metadados JSON."""
-
 import json
 import logging
 import shutil
@@ -129,26 +127,22 @@ def write_segments(
     duration_settings: DurationSettings,
     processing_time_s: float,
 ) -> tuple[Path, list[SegmentResult]]:
-    """Grava segmentos de áudio e metadados no diretório de saída.
+    """Grava segmentos de áudio no diretório de saída e retorna os caminhos produzidos.
 
-    Para cada segmento (start_s, end_s) em segments, extrai a fatia correspondente de áudio e
-    a grava no formato configurado. Opcionalmente grava metadados individuais por segmento,
-    um espectrograma mel comprimido e um arquivo run_metadata.json global.
-
-    Se o diretório já existir e redo_if_exists for False, nenhum arquivo é criado e o caminho
-    existente é retornado imediatamente com lista vazia de segmentos.
+    Extrai cada fatia do sinal, grava no formato configurado e opcionalmente produz
+    metadados e espectrogramas. Retorna sem gravar nada se o diretório já existir
+    e redo_if_exists for False.
 
     Args:
-        audio: Sinal de áudio completo mono float32 do qual os segmentos são extraídos.
+        audio: Sinal de áudio completo mono float32.
         sample_rate: Taxa de amostragem do sinal em Hz.
-        segments: Lista de segmentos (início, fim) em segundos produzida pelo segmentador.
-        source_path: Caminho do arquivo de áudio de origem, usado nos metadados e para
-            compor automaticamente o nome do subdiretório da execução.
+        segments: Lista de segmentos (início, fim) em segundos.
+        source_path: Caminho do arquivo de origem, usado nos metadados.
         io_settings: Configurações de caminho, formato e comportamento de escrita.
-        segmenter_name: Nome da classe do segmentador para inclusão nos metadados.
+        segmenter_name: Nome da classe do segmentador para os metadados.
         segmenter_settings: Configurações do segmentador ou None.
-        duration_settings: Configurações de duração para inclusão nos metadados.
-        processing_time_s: Tempo de processamento em segundos para inclusão nos metadados.
+        duration_settings: Configurações de duração para os metadados.
+        processing_time_s: Tempo de processamento em segundos para os metadados.
 
     Returns:
         Tupla (diretório da execução, lista de SegmentResult com path preenchido).

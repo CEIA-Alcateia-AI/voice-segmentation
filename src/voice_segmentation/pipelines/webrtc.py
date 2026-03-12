@@ -1,5 +1,3 @@
-"""Pipeline pre-configurado baseado no WebRTC VAD."""
-
 from typing import Literal
 
 from pydantic import BaseModel
@@ -12,15 +10,12 @@ from voice_segmentation.settings import DurationSettings
 class WebRTCPipeline(Pipeline):
     """Pipeline de segmentação baseado no WebRTC Voice Activity Detector.
 
-    Aceita parâmetros individuais diretamente no construtor. Um objeto ``WebRTCSettings``
-    completo pode ser passado para uso avançado e prevalece sobre os parâmetros individuais.
-
-    Opções de saída (espectrogramas, metadados, formato de áudio, etc.) são configuradas
-    por chamada em ``run()``, permitindo reutilizar a mesma instância com saídas distintas.
+    Aceita parâmetros individuais ou um objeto WebRTCSettings completo, que prevalece
+    sobre os parâmetros individuais.
 
     Attributes:
         webrtc_settings: Configurações do VAD.
-        duration_settings: Limites de duração e mesclagem. Herdado de :class:`Pipeline`.
+        duration_settings: Limites de duração e mesclagem. Herdado de Pipeline.
     """
 
     def __init__(

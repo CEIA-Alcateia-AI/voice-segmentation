@@ -1,5 +1,3 @@
-"""Configurações de entrada e saída do pipeline de segmentação."""
-
 from pathlib import Path
 from typing import Literal
 

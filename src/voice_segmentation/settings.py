@@ -1,5 +1,3 @@
-"""Configurações compartilhadas do pipeline de segmentação."""
-
 from typing import Self
 
 from pydantic import BaseModel, Field, model_validator
@@ -8,12 +6,7 @@ from pydantic import BaseModel, Field, model_validator
 class DurationSettings(BaseModel):
     """Limites de duração e parâmetros de mesclagem de segmentos.
 
-    Os limites seguem a hierarquia obrigatoria:
-        - hard_lower <= soft_lower <= soft_upper <= hard_upper.
-
-    Os limites soft (suaves) representam a duração desejada; os hard (rigidos) representam os
-    extremos toleráveis. Segmentos fora dos limites hard sao descartados ou reparticionados pelo
-    pós-processamento.
+    Segue a hierarquia obrigatória hard_lower <= soft_lower <= soft_upper <= hard_upper.
 
     Attributes:
         soft_lower: Duração mínima desejada de um segmento, em segundos.
@@ -40,7 +33,7 @@ class DurationSettings(BaseModel):
 
     @model_validator(mode="after")
     def _validate_duration_hierarchy(self: Self) -> Self:
-        """Válida a hierarquia hard_lower <= soft_lower <= soft_upper <= hard_upper."""
+        """Valida a hierarquia hard_lower <= soft_lower <= soft_upper <= hard_upper."""
         if self.hard_lower > self.soft_lower:
             raise ValueError(
                 f"hard_lower ({self.hard_lower}) deve ser <= soft_lower ({self.soft_lower})"

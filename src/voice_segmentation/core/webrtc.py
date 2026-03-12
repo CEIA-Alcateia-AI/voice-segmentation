@@ -1,5 +1,3 @@
-"""Estratégia de segmentação baseada no WebRTC VAD."""
-
 import logging
 from enum import IntEnum
 from typing import Literal

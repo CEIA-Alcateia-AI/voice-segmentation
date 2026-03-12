@@ -1,5 +1,3 @@
-"""Tipos de resultado para execuções de pipeline de segmentação."""
-
 from dataclasses import dataclass
 from pathlib import Path
 

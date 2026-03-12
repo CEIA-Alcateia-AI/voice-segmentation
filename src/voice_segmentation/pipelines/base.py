@@ -1,5 +1,3 @@
-"""Classe base compartilhada por todos os pipelines de segmentação de voz."""
-
 import logging
 import time
 from abc import ABC, abstractmethod
@@ -25,7 +23,7 @@ class Segmenter(Protocol):
     """Contrato que todo segmentador deve satisfazer.
 
     Implemente este protocolo para adicionar novas estratégias de segmentação
-    compatíveis com :class:`Pipeline`.
+    compatíveis com Pipeline.
     """
 
     def segment(
@@ -50,15 +48,8 @@ class Segmenter(Protocol):
 class Pipeline(ABC):
     """Classe base para pipelines de segmentação de voz.
 
-    Encapsula os limites de duração e fornece a implementação completa de ``run()``.
-    Todas as opções de escrita (espectrogramas, metadados, formato de áudio, etc.) são
-    passadas diretamente a ``run()``, permitindo que a mesma instância seja reutilizada
-    com configurações de saída distintas em cada chamada.
-
-    Subclasses devem:
-    - Chamar ``super().__init__()`` passando os parâmetros de duração.
-    - Atribuir ``self._segmenter`` com uma instância que implemente :class:`Segmenter`.
-    - Implementar a propriedade abstrata ``_segmenter_settings``.
+    Encapsula os limites de duração e fornece a implementação completa de `run()`.
+    Subclasses devem atribuir `self._segmenter` e implementar `_segmenter_settings`.
 
     Attributes:
         duration_settings: Configurações de duração aplicadas em cada execução.
@@ -126,12 +117,12 @@ class Pipeline(ABC):
 
         Args:
             source: Caminho do arquivo de áudio ou array numpy float32. Quando for array,
-                ``sample_rate`` é obrigatório.
-            sample_rate: Taxa de amostragem em Hz. Ignorado quando ``source`` é um caminho.
+                `sample_rate` é obrigatório.
+            sample_rate: Taxa de amostragem em Hz. Ignorado quando `source` é um caminho.
             output: Diretório de saída para gravar os segmentos. Ignorado quando
-                ``io_settings`` é fornecido.
+                `io_settings` é fornecido.
             io_settings: Configurações de escrita completas. Quando fornecido, prevalece sobre
-                ``output`` e todos os parâmetros individuais de escrita.
+                `output` e todos os parâmetros individuais de escrita.
             create_run_subfolder: Cria subdiretório por execução dentro de output.
             create_segment_subfolders: Cada segmento recebe seu próprio subdiretório.
             write_run_metadata: Grava run_metadata.json na raiz da execução.
@@ -141,15 +132,15 @@ class Pipeline(ABC):
             audio_format: Formato dos arquivos de áudio gravados.
             run_name: Nome fixo do subdiretório da execução.
             segment_prefix: Prefixo dos arquivos de segmento.
-            source_name: Nome descritivo usado nos metadados quando ``source`` é um array numpy.
-                Quando None, usa ``"audio"``.
+            source_name: Nome descritivo usado nos metadados quando `source` é um array numpy.
+                Quando None, usa `"audio"`.
 
         Returns:
             RunResult com a lista de segmentos, métricas de execução e, quando output é
             fornecido, o caminho dos arquivos gravados e o diretório de saída.
 
         Raises:
-            ValueError: Se ``source`` for um array e ``sample_rate`` não for fornecido.
+            ValueError: Se `source` for um array e `sample_rate` não for fornecido.
             EmptySegmentationError: Se nenhum segmento válido for produzido.
         """
         pipeline_name = type(self).__name__
