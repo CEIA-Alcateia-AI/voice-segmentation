@@ -1,9 +1,29 @@
+import importlib.metadata
 import logging
+import sys
+import types
 from enum import IntEnum
 from typing import Literal
 
 import librosa
 import numpy as np
+
+if "pkg_resources" not in sys.modules:
+    mod = types.ModuleType("pkg_resources")
+
+    class _Dist:
+        def __init__(self, version: str) -> None:
+            self.version = version
+
+    def _get_distribution(name: str) -> _Dist:
+        try:
+            return _Dist(importlib.metadata.version(name))
+        except importlib.metadata.PackageNotFoundError:
+            return _Dist("0.0.0")
+
+    mod.get_distribution = _get_distribution  # type: ignore[attr-defined]
+    sys.modules["pkg_resources"] = mod
+
 import webrtcvad
 from pydantic import BaseModel, Field
 

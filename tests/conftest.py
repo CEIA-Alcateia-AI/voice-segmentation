@@ -1,10 +1,29 @@
 """Fixtures compartilhadas entre todos os testes."""
 
+import importlib.metadata
+import sys
+import types
 from pathlib import Path
 
 import numpy as np
 import pytest
 import soundfile as sf
+
+if "pkg_resources" not in sys.modules:
+    _mod = types.ModuleType("pkg_resources")
+
+    class _Dist:
+        def __init__(self, version: str) -> None:
+            self.version = version
+
+    def _get_distribution(name: str) -> _Dist:
+        try:
+            return _Dist(importlib.metadata.version(name))
+        except importlib.metadata.PackageNotFoundError:
+            return _Dist("0.0.0")
+
+    _mod.get_distribution = _get_distribution  # type: ignore[attr-defined]
+    sys.modules["pkg_resources"] = _mod
 
 from voice_segmentation.types import AudioArray
 

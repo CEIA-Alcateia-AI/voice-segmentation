@@ -4,23 +4,21 @@
 SRC := src/voice_segmentation
 TESTS := tests
 
-# Detecta o python do ambiente ativo
-PYTHON := python
+# Usa o Python do venv local se existir, senão o Python do PATH
+PYTHON := $(shell [ -f .venv/bin/python3 ] && echo .venv/bin/python3 || command -v python3 2>/dev/null || echo python)
 
-.PHONY: help install install-dev lint format typecheck test pre-commit clean
+.PHONY: help install install-dev lint lint-fix format format-check typecheck test test-cov pre-commit clean
 
 help: ## Exibe esta mensagem de ajuda
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-bootstrap: ## Inicializa pip no venv caso não esteja disponível (rode uma vez após criar o venv)
-	$(PYTHON) -m ensurepip --upgrade
-	$(PYTHON) -m pip install --upgrade pip
-
 install: ## Instala as dependências de produção
+	$(PYTHON) -m ensurepip --upgrade 2>/dev/null || true
 	$(PYTHON) -m pip install -e .
 
 install-dev: ## Instala todas as dependências de desenvolvimento
+	$(PYTHON) -m ensurepip --upgrade 2>/dev/null || true
 	$(PYTHON) -m pip install -e ".[dev,test]"
 	$(PYTHON) -m pre_commit install
 
