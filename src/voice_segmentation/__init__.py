@@ -1,5 +1,7 @@
 """Biblioteca de estratégias de segmentação de voz."""
 
+from voice_segmentation.core.silence import SilenceSettings
+from voice_segmentation.core.webrtc import WebRTCAggressiveness, WebRTCSettings
 from voice_segmentation.exceptions import EmptySegmentationError, VoiceSegmentationError
 from voice_segmentation.io.settings import IOSettings
 from voice_segmentation.result import RunResult, SegmentResult
@@ -11,5 +13,8 @@ __all__ = [
     "IOSettings",
     "RunResult",
     "SegmentResult",
+    "SilenceSettings",
     "VoiceSegmentationError",
+    "WebRTCAggressiveness",
+    "WebRTCSettings",
 ]
