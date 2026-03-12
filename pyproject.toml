@@ -10,8 +10,12 @@ readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.12"
 dependencies = [
+    "librosa>=0.11.0",
+    "matplotlib>=3.10.8",
     "numpy>=2.4.3",
     "pydantic>=2.12.5",
+    "soundfile>=0.12.1",
+    "webrtcvad>=2.0.10",
 ]
 
 [project.optional-dependencies]
@@ -57,12 +61,17 @@ select = [
     "D",
 ]
 ignore = [
+    "ANN101",  # self never needs annotation (removed in ruff >=0.6)
+    "ANN102",  # cls never needs annotation (removed in ruff >=0.6)
     "D100",
     "D104",
 ]
 
 [tool.ruff.lint.isort]
 known-first-party = ["voice_segmentation"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["ANN", "D"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -85,6 +94,22 @@ check_untyped_defs = true
 no_implicit_optional = true
 show_error_codes = true
 files = ["src/voice_segmentation"]
+
+[[tool.mypy.overrides]]
+module = "webrtcvad"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "soundfile"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["librosa", "librosa.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["matplotlib", "matplotlib.*"]
+ignore_missing_imports = true
 
 # --- Pytest ---
 [tool.pytest.ini_options]

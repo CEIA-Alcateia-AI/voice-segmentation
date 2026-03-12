@@ -1,12 +1,11 @@
 """Biblioteca de estratégias de segmentação de voz."""
 
-from voice_segmentation._settings import DurationSettings
-from voice_segmentation._types import AudioArray, Segment
-from voice_segmentation.protocols import Segmenter
+from voice_segmentation.exceptions import EmptySegmentationError, VoiceSegmentationError
+from voice_segmentation.result import RunResult, SegmentResult
 
 __all__ = [
-    "AudioArray",
-    "DurationSettings",
-    "Segment",
-    "Segmenter",
+    "EmptySegmentationError",
+    "RunResult",
+    "SegmentResult",
+    "VoiceSegmentationError",
 ]
