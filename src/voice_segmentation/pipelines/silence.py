@@ -1,4 +1,3 @@
-
 from pydantic import BaseModel
 
 from voice_segmentation.core.silence import SilenceSegmenter, SilenceSettings

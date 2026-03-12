@@ -18,6 +18,7 @@ dependencies = [
     "pydantic>=2.12.5",
     "silero-vad>=6.2.1",
     "soundfile>=0.12.1",
+    "setuptools>=80.0.0",
     "webrtcvad>=2.0.10",
 ]
 

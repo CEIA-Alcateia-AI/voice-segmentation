@@ -1,4 +1,3 @@
-
 class VoiceSegmentationError(Exception):
     """Classe base para todas as exceções da biblioteca."""
 

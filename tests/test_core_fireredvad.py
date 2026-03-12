@@ -199,9 +199,13 @@ def test_segment_deletes_temp_file_on_error():
         seg = FireRedSegmenter(settings)
         seg._vad = mock_vad
 
-    with patch(
-        "voice_segmentation.core.fireredvad.tempfile.NamedTemporaryFile", side_effect=tracking_ntf
-    ), pytest.raises(RuntimeError):
+    with (
+        patch(
+            "voice_segmentation.core.fireredvad.tempfile.NamedTemporaryFile",
+            side_effect=tracking_ntf,
+        ),
+        pytest.raises(RuntimeError),
+    ):
         seg.segment(_sine(2.0), SR, _settings())
 
     for path in created:
@@ -216,9 +220,7 @@ def test_segment_deletes_temp_file_on_error():
 def test_ensure_weights_downloads_when_dir_missing(tmp_path):
     """_ensure_weights dispara o download quando o diretório não existe."""
     missing_dir = tmp_path / "VAD"
-    with patch(
-        "voice_segmentation.core.fireredvad.download_fireredvad_weights"
-    ) as mock_download:
+    with patch("voice_segmentation.core.fireredvad.download_fireredvad_weights") as mock_download:
         mock_download.return_value = missing_dir
         FireRedSegmenter._ensure_weights(missing_dir)
         mock_download.assert_called_once_with(tmp_path, variant="VAD")
@@ -231,9 +233,7 @@ def test_ensure_weights_skips_download_when_weights_present(tmp_path):
     (model_dir / "model.pth.tar").write_bytes(b"fake")
     (model_dir / "cmvn.ark").write_bytes(b"fake")
 
-    with patch(
-        "voice_segmentation.core.fireredvad.download_fireredvad_weights"
-    ) as mock_download:
+    with patch("voice_segmentation.core.fireredvad.download_fireredvad_weights") as mock_download:
         FireRedSegmenter._ensure_weights(model_dir)
         mock_download.assert_not_called()
 
@@ -246,9 +246,7 @@ def test_segmenter_auto_downloads_on_init(tmp_path):
     mock_vad = MagicMock()
     with (
         patch("voice_segmentation.core.fireredvad.FireRedVad") as mock_cls,
-        patch(
-            "voice_segmentation.core.fireredvad.download_fireredvad_weights"
-        ) as mock_download,
+        patch("voice_segmentation.core.fireredvad.download_fireredvad_weights") as mock_download,
     ):
         mock_cls.from_pretrained.return_value = mock_vad
         mock_download.return_value = model_dir
