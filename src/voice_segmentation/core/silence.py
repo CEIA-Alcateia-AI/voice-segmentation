@@ -79,12 +79,18 @@ class SilenceSegmenter:
 
         Returns:
             Valor positivo de top_db a ser usado em librosa.effects.split.
+
+        Raises:
+            EmptySegmentationError: Se o sinal for totalmente silencioso (energia zero).
         """
         rms: np.ndarray = librosa.feature.rms(
             y=audio,
             frame_length=self.silence_settings.frame_length,
             hop_length=self.silence_settings.hop_length,
         )[0]
+
+        if float(np.max(rms)) == 0.0:
+            raise EmptySegmentationError("Áudio totalmente silencioso: energia RMS é zero.")
 
         # Converte para dB relativo ao pico - valores em (-inf, 0]
         rms_db: np.ndarray = librosa.amplitude_to_db(rms, ref=float(np.max(rms)))
