@@ -8,7 +8,14 @@ from typing import Any, Literal
 import librosa
 import numpy as np
 import soundfile as sf
-from fireredvad import FireRedVad, FireRedVadConfig
+
+try:
+    from fireredvad import FireRedVad, FireRedVadConfig
+
+    _FIREREDVAD_AVAILABLE = True
+except ImportError:
+    _FIREREDVAD_AVAILABLE = False
+
 from pydantic import BaseModel, Field
 
 from voice_segmentation.exceptions import EmptySegmentationError
@@ -161,6 +168,11 @@ class FireRedSegmenter:
             fireredvad_settings: Configurações do segmentador, incluindo o caminho para
                 o diretório de pesos do modelo (baixado automaticamente se ausente).
         """
+        if not _FIREREDVAD_AVAILABLE:
+            raise ImportError(
+                "fireredvad é necessário para FireRedSegmenter. "
+                "Instale com: pip install 'voice-segmentation[fireredvad]'"
+            )
         self.fireredvad_settings = fireredvad_settings
         self._ensure_weights(fireredvad_settings.model_dir)
 

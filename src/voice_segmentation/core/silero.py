@@ -1,10 +1,18 @@
+from __future__ import annotations
+
 import logging
 from typing import Any
 
 import librosa
-import torch
 from pydantic import BaseModel, Field
-from silero_vad import get_speech_timestamps, load_silero_vad
+
+try:
+    import torch
+    from silero_vad import get_speech_timestamps, load_silero_vad
+
+    _SILERO_AVAILABLE = True
+except ImportError:
+    _SILERO_AVAILABLE = False
 
 from voice_segmentation.exceptions import EmptySegmentationError
 from voice_segmentation.post.duration import enforce_duration
@@ -74,6 +82,11 @@ class SileroSegmenter:
             silero_settings: Configurações específicas do VAD. Se None, os valores padrão de
                 SileroSettings são usados.
         """
+        if not _SILERO_AVAILABLE:
+            raise ImportError(
+                "silero-vad e torch são necessários para SileroSegmenter. "
+                "Instale com: pip install 'voice-segmentation[silero]'"
+            )
         self.silero_settings = silero_settings or SileroSettings()
         self._model: Any = load_silero_vad()
         logger.debug("SileroSegmenter inicializado com %s", self.silero_settings)
