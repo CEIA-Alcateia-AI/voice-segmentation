@@ -1,1 +1,1 @@
-"""Adaptadores de entrada/saída: arquivo -> numpy e numpy -> arquivo."""
+"""Leitura de arquivos de áudio e escrita de segmentos com metadados."""
