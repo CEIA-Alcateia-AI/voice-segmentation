@@ -24,13 +24,7 @@ if "pkg_resources" not in sys.modules:
     mod.get_distribution = _get_distribution  # type: ignore[attr-defined]
     sys.modules["pkg_resources"] = mod
 
-try:
-    import webrtcvad
-
-    _WEBRTC_AVAILABLE = True
-except ImportError:
-    _WEBRTC_AVAILABLE = False
-
+import webrtcvad
 from pydantic import BaseModel, Field
 
 from voice_segmentation.exceptions import EmptySegmentationError, SilenceDetectionError
@@ -110,11 +104,6 @@ class WebRTCSegmenter:
             webrtc_settings: Configurações específicas do VAD. Se None, os valores padrão de
                 WebRTCSettings sao usados.
         """
-        if not _WEBRTC_AVAILABLE:
-            raise ImportError(
-                "webrtcvad é necessário para WebRTCSegmenter. "
-                "Instale com: pip install 'voice-segmentation[webrtc]'"
-            )
         self.webrtc_settings = webrtc_settings or WebRTCSettings()
         logger.debug("WebRTCSegmenter inicializado com %s", self.webrtc_settings)
 

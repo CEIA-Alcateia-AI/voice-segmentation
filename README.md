@@ -6,28 +6,17 @@ pós-processamento de duração e metadados.
 
 ## Estratégias disponíveis
 
-| Pipeline | Método | Extra necessário |
-|---|---|---|
-| `WebRTCPipeline` | WebRTC VAD clássico | `[webrtc]` |
-| `SilencePipeline` | Detecção de silêncios via RMS (librosa) | — |
-| `SileroPipeline` | Silero VAD (rede neural, leve) | `[silero]` |
-| `FireRedPipeline` | FireRed VAD (rede neural, pesos baixados automaticamente) | `[fireredvad]` |
+| Pipeline | Método |
+|---|---|
+| `WebRTCPipeline` | WebRTC VAD clássico |
+| `SilencePipeline` | Detecção de silêncios via RMS (librosa) |
+| `SileroPipeline` | Silero VAD (rede neural, leve) |
+| `FireRedPipeline` | FireRed VAD (rede neural, pesos baixados automaticamente) |
 
 ## Instalação
 
-Instalação base — inclui `SilencePipeline` e dependências de IO:
-
 ```bash
 pip install voice-segmentation
-```
-
-Com os extras desejados:
-
-```bash
-pip install "voice-segmentation[webrtc]"            # WebRTC VAD
-pip install "voice-segmentation[silero]"            # Silero VAD (torch)
-pip install "voice-segmentation[fireredvad]"        # FireRed VAD (torch + pesos HuggingFace)
-pip install "voice-segmentation[all]"               # tudo
 ```
 
 ## Uso rápido

@@ -10,28 +10,19 @@ readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.12"
 dependencies = [
+    "fireredvad>=0.0.2",
+    "huggingface_hub>=1.6.0",
     "librosa>=0.11.0",
     "matplotlib>=3.10.8",
     "numpy>=2.4.3",
     "pydantic>=2.12.5",
     "setuptools>=80.0.0",
+    "silero-vad>=6.2.1",
     "soundfile>=0.12.1",
+    "webrtcvad>=2.0.10",
 ]
 
 [project.optional-dependencies]
-silero = [
-    "silero-vad>=6.2.1",
-]
-fireredvad = [
-    "fireredvad>=0.0.2",
-    "huggingface_hub>=1.6.0",
-]
-webrtc = [
-    "webrtcvad>=2.0.10",
-]
-all = [
-    "voice-segmentation[silero,fireredvad,webrtc]",
-]
 dev = [
     "mypy>=1.9.0",
     "pre-commit>=4.5.1",
