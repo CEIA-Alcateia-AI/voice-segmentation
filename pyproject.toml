@@ -10,10 +10,13 @@ readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.12"
 dependencies = [
+    "fireredvad>=0.0.2",
+    "huggingface_hub>=1.6.0",
     "librosa>=0.11.0",
     "matplotlib>=3.10.8",
     "numpy>=2.4.3",
     "pydantic>=2.12.5",
+    "silero-vad>=6.2.1",
     "soundfile>=0.12.1",
     "webrtcvad>=2.0.10",
 ]
@@ -61,8 +64,8 @@ select = [
     "D",
 ]
 ignore = [
-    "ANN101",  # self never needs annotation (removed in ruff >=0.6)
-    "ANN102",  # cls never needs annotation (removed in ruff >=0.6)
+    "ANN101",
+    "ANN102",
     "D100",
     "D104",
 ]
@@ -109,6 +112,22 @@ ignore_missing_imports = true
 
 [[tool.mypy.overrides]]
 module = ["matplotlib", "matplotlib.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["torch", "torch.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "silero_vad"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["fireredvad", "fireredvad.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["huggingface_hub", "huggingface_hub.*"]
 ignore_missing_imports = true
 
 # --- Pytest ---
