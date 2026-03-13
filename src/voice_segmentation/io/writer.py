@@ -94,9 +94,11 @@ def _build_run_metadata(
         "pipeline": {
             "segmenter": segmenter_name,
             "segmenter_settings": (
-                segmenter_settings.model_dump() if segmenter_settings is not None else None
+                segmenter_settings.model_dump(mode="json")
+                if segmenter_settings is not None
+                else None
             ),
-            "duration_settings": duration_settings.model_dump(),
+            "duration_settings": duration_settings.model_dump(mode="json"),
         },
         "processed_at": processed_at,
         "result": {
@@ -178,9 +180,11 @@ def write_segments(
         "pipeline": {
             "segmenter": segmenter_name,
             "segmenter_settings": (
-                segmenter_settings.model_dump() if segmenter_settings is not None else None
+                segmenter_settings.model_dump(mode="json")
+                if segmenter_settings is not None
+                else None
             ),
-            "duration_settings": duration_settings.model_dump(),
+            "duration_settings": duration_settings.model_dump(mode="json"),
         },
         "processed_at": processed_at,
     }

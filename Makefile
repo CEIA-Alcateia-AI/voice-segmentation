@@ -5,7 +5,11 @@ SRC := src/voice_segmentation
 TESTS := tests
 
 # Usa o Python do venv local se existir, senão o Python do PATH
-PYTHON := $(shell [ -f .venv/bin/python3 ] && echo .venv/bin/python3 || command -v python3 2>/dev/null || echo python)
+PYTHON := $(shell \
+	if [ -f .venv/Scripts/python.exe ]; then echo .venv/Scripts/python.exe; \
+	elif [ -f .venv/bin/python3 ]; then echo .venv/bin/python3; \
+	else command -v python3 2>/dev/null || command -v python 2>/dev/null || echo python; \
+	fi)
 
 .PHONY: help install install-dev lint lint-fix format format-check typecheck test test-cov pre-commit clean
 
