@@ -204,6 +204,7 @@ def enforce_duration(
     """Aplica o pipeline completo de limitação de duração sobre uma lista de segmentos.
 
     Executa em ordem: mesclagem de curtos, divisão de longos, overlap e filtragem hard.
+    Quando `settings.apply_post_processing` for False, retorna os segmentos sem modificação.
 
     Args:
         segments: Lista de segmentos (início, fim) em segundos produzida por uma estratégia do
@@ -214,6 +215,9 @@ def enforce_duration(
     Returns:
         Lista de segmentos processados, ordenada cronologicamente.
     """
+    if not settings.apply_post_processing:
+        return list(segments)
+
     merged = _merge_short_segments(segments, settings)
     split = _split_long_segments(merged, settings)
     overlapped = _apply_overlap(split, settings, audio_duration)

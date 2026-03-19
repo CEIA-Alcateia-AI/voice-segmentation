@@ -18,6 +18,9 @@ class DurationSettings(BaseModel):
         overlap: Sobreposição entre segmentos consecutivos, em segundos.
         max_gap: Intervalo máximo entre dois segmentos para que sejam mesclados em um único,
             em segundos.
+        apply_post_processing: Quando False, retorna os segmentos brutos do detector sem aplicar
+            nenhuma etapa de pós-processamento (mesclagem, divisão, overlap ou filtragem por
+            limites de duração).
     """
 
     soft_lower: float = Field(default=1.0, gt=0.0, description="Duração mínima desejada (s)")
@@ -29,6 +32,13 @@ class DurationSettings(BaseModel):
         default=0.0,
         ge=0.0,
         description="Gap máximo antes de mesclar dois segmentos (s)",
+    )
+    apply_post_processing: bool = Field(
+        default=True,
+        description=(
+            "Aplica pós-processamento de duração (mesclagem, divisão, overlap e filtragem). "
+            "Quando False, retorna os segmentos brutos do detector."
+        ),
     )
 
     @model_validator(mode="after")

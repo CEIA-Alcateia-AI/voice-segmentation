@@ -66,6 +66,7 @@ class Pipeline(ABC):
         hard_upper: float = 60.0,
         overlap: float = 0.0,
         max_gap: float = 0.0,
+        apply_post_processing: bool = True,
         duration_settings: DurationSettings | None = None,
     ) -> None:
         """Inicializa os parâmetros de duração.
@@ -77,6 +78,8 @@ class Pipeline(ABC):
             hard_upper: Duração máxima absoluta para segmentos em segundos.
             overlap: Sobreposição em segundos adicionada ao final de segmentos longos.
             max_gap: Gap máximo em segundos para mesclar segmentos adjacentes.
+            apply_post_processing: Quando False, retorna os segmentos brutos do detector sem
+                aplicar mesclagem, divisão, overlap ou filtragem por limites de duração.
             duration_settings: Configurações completas de duração. Prevalece sobre os parâmetros
                 individuais quando fornecido.
         """
@@ -87,6 +90,7 @@ class Pipeline(ABC):
             hard_upper=hard_upper,
             overlap=overlap,
             max_gap=max_gap,
+            apply_post_processing=apply_post_processing,
         )
 
     @property
